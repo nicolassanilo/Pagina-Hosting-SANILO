@@ -5,6 +5,8 @@ services:
     plan: starter
     dockerfilePath: ./Dockerfile
     envVars:
+      - key: NODE_ENV
+        value: "production"
       - key: MONGO_URI
         value: "mongodb://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>"
       - key: AUTH_SECRET

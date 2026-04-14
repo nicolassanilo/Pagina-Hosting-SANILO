@@ -1,20 +1,31 @@
-FROM node:20-alpine AS frontend-builder
+FROM node:20-alpine AS builder
 WORKDIR /app
-COPY frontend/package.json frontend/package-lock.json* ./frontend/
-COPY frontend ./frontend
-RUN cd frontend && npm install && npm run build
 
-FROM node:20-alpine AS backend-builder
-WORKDIR /app
-COPY backend/package.json backend/package-lock.json* ./backend/
+# Copy root package files
+COPY package.json package-lock.json* ./
+
+# Copy backend
+COPY backend ./backend
+
+# Copy frontend  
+COPY frontend ./frontend
+
+# Install backend dependencies
 RUN cd backend && npm install
+
+# Install frontend dependencies and build
+RUN cd frontend && npm install && npm run build
 
 FROM node:20-alpine AS production
 WORKDIR /app
-COPY --from=backend-builder /app/backend/node_modules ./backend/node_modules
-COPY backend ./backend
-COPY --from=frontend-builder /app/frontend/build ./frontend/build
+
+# Copy backend from builder
+COPY --from=builder /app/backend ./backend
+COPY --from=builder /app/frontend/build ./frontend/build
+
 WORKDIR /app/backend
+
 ENV NODE_ENV=production
 EXPOSE 5000
-CMD ["node", "server.js"]
+
+CMD ["npm", "start"]
