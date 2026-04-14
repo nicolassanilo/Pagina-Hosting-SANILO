@@ -1,27 +1,27 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy root package files
-COPY package.json package-lock.json* ./
+# Copy backend first
+COPY backend/package*.json ./backend/
+WORKDIR /app/backend
+RUN npm ci
 
-# Copy backend
-COPY backend ./backend
-
-# Copy frontend  
+# Copy frontend and build
+WORKDIR /app
 COPY frontend ./frontend
+WORKDIR /app/frontend
+RUN npm ci && npm run build
 
-# Install backend dependencies
-RUN cd backend && npm install
-
-# Install frontend dependencies and build
-RUN cd frontend && npm install && npm run build
-
-FROM node:20-alpine AS production
+# Production stage
+FROM node:20-alpine
 WORKDIR /app
 
-# Copy backend from builder
-COPY --from=builder /app/backend ./backend
+# Copy built frontend
 COPY --from=builder /app/frontend/build ./frontend/build
+
+# Copy backend with installed dependencies
+COPY --from=builder /app/backend/node_modules ./backend/node_modules
+COPY backend ./backend
 
 WORKDIR /app/backend
 
