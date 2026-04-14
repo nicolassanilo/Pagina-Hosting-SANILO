@@ -1,0 +1,123 @@
+:root {
+  --bg: #f4f7fc;
+  --card: #ffffff;
+  --primary: #1d4ed8;
+  --secondary: #0f172a;
+  --text: #111827;
+  --muted: #6b7280;
+  --danger: #dc2626;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-links a,
+.btn-link {
+  color: white;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.page-content {
+  padding: 2rem;
+}
+
+.auth-card,
+.form-card,
+.dashboard-card,
+.credits-card {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.auth-card h2,
+.form-card h2,
+.dashboard-card h2,
+.credits-card h2 {
+  margin-top: 0;
+}
+
+.auth-card form,
+.form-card form {
+  display: grid;
+  gap: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  outline: none;
+}
+
+button,
+.primary-button {
+  padding: 0.95rem 1.25rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+.success {
+  margin-top: 1rem;
+  color: green;
+}
+
+.error {
+  margin-top: 1rem;
+  color: var(--danger);
+}
+
+.bot-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.bot-card {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f9fafb;
+}
+
+.bot-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

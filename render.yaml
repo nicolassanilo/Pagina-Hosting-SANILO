@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: whatsapp-bot-platform
+    env: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: MONGO_URI
+        value: "mongodb://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>"
+      - key: AUTH_SECRET
+        value: "change-me"
